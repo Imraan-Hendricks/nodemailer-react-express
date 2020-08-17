@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "This project demonstrates the usage of nodemailer with express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Imraan-Hendricks",
+  "license": "ISC"
+}
