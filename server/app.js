@@ -11,6 +11,8 @@ app.use(shutdown.handleRequests());
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+require('./routes/routes')(app);
+
 const server = app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
