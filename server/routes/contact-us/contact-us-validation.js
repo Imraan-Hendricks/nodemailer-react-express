@@ -68,7 +68,7 @@ const message = () =>
 
 exports.check = [firstName(), lastName(), contact(), email(), message()];
 
-exports.errors = (req, res, next) => {
+exports.handleErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
     return res.json({ success: false, err: errors.array() });
