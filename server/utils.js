@@ -1,6 +1,8 @@
-const handle = (promise) =>
+const path = require('path');
+
+exports.handle = (promise) =>
   promise
     .then((data) => [data, undefined])
     .catch((error) => Promise.resolve([undefined, error]));
 
-exports.handle = handle;
+exports.relativeDir = (dir) => path.join(__dirname, dir);

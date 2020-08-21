@@ -1,5 +1,6 @@
 exports.PORT = process.env.PORT || 5000;
 exports.MAIL_TO = process.env.MAIL_TO;
+exports.NODE_ENV = process.env.NODE_ENV;
 exports.NODEMAILER_USER = process.env.NODEMAILER_USER;
 exports.NODEMAILER_CLIENT_ID = process.env.NODEMAILER_CLIENT_ID;
 exports.NODEMAILER_CLIENT_SECRET = process.env.NODEMAILER_CLIENT_SECRET;

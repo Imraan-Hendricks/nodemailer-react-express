@@ -7,7 +7,7 @@ const {
   NODEMAILER_ACCESS_TOKEN,
 } = require('./env');
 
-module.exports = nodemailer.createTransport({
+exports.transporter = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   secure: true,

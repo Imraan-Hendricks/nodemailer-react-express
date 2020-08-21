@@ -1,21 +1,26 @@
 const express = require('express');
-const path = require('path');
-const shutdown = require('./config/shutdown');
-const { PORT } = require('./config/env');
+const { PORT, NODE_ENV } = require('./config/env');
+const { relativeDir } = require('./utils');
+const { routes } = require('./routes/routes');
+const {
+  handleRequests,
+  onInterrupt,
+  onTerminate,
+} = require('./config/shutdown');
 
 const app = express();
 
 app.use(express.json());
-app.use(shutdown.handleRequests());
+app.use(handleRequests());
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(express.static(relativeDir('../client/build')));
+app.use('/public', express.static(relativeDir('public')));
 
-require('./routes/routes')(app);
+routes(app);
 
 const server = app.listen(PORT, () =>
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
-shutdown.onInterrupt(server);
-shutdown.onTerminate(server);
+onInterrupt(server);
+onTerminate(server);

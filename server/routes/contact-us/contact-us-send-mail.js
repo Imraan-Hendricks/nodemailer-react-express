@@ -1,40 +1,52 @@
 const { handle } = require('../../utils');
 const { MAIL_TO } = require('../../config/env');
-const transporter = require('../../config/transporter');
+const { transporter } = require('../../config/nodemailer');
 
 exports.sendMail = async (req, res) => {
-  const html = `<div><p>${req.body.message}</p><ul><li>firstName: ${req.body.firstName}</li><li>lastName: ${req.body.lastName}</li><li>contact: ${req.body.contact}</li><li>email: ${req.body.email}</li></ul></div>`;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const contact = req.body.contact;
+  const email = req.body.email;
+  const message = req.body.message;
 
-  const mailOptions = {
-    from: `${req.body.firstName} ${req.body.lastName} <${req.body.email}>`,
-    to: MAIL_TO,
-    replyTo: req.body.email,
-    subject: 'Enquiry',
-    html: html,
-  };
+  const html =
+    `<div><p>${message}</p>` +
+    `<ul><li>firstName: ${firstName}</li>` +
+    `<li>lastName: ${lastName}</li>` +
+    `<li>contact: ${contact}</li>` +
+    `<li>email: ${email}</li></ul></div>`;
 
-  const [mailRes, err] = await handle(transporter.sendMail(mailOptions));
+  const [mailRes, err] = await handle(
+    transporter.sendMail({
+      from: `${firstName} ${lastName} <${email}>`,
+      to: MAIL_TO,
+      replyTo: email,
+      subject: 'Enquiry',
+      html: html,
+    })
+  );
 
-  if (err) {
-    const err = [
-      {
-        location: 'nodemailer',
-        msg: 'Email failed. Please try again',
-        param: 'general',
-        value: '',
-      },
-    ];
-    return res.json({ success: false, err });
-  }
+  if (err)
+    return res.json({
+      success: false,
+      err: [
+        {
+          location: 'nodemailer',
+          msg: 'Email failed. Please try again',
+          param: 'general',
+          value: '',
+        },
+      ],
+    });
 
   res.json({
     success: true,
     data: {
-      ...mailOptions,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      from: req.body.email,
-      message: req.body.message,
+      firstName,
+      lastName,
+      contact,
+      email,
+      message,
     },
   });
 };

@@ -9,4 +9,4 @@ ApiRouter.post(
   contactUsController.sendMail
 );
 
-module.exports = ApiRouter;
+exports.ApiRouter = ApiRouter;
