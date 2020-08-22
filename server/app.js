@@ -1,6 +1,6 @@
 const express = require('express');
+const path = require('path');
 const { PORT, NODE_ENV } = require('./config/env');
-const { relativeDir } = require('./utils');
 const { routes } = require('./routes/routes');
 const {
   handleRequests,
@@ -13,8 +13,8 @@ const app = express();
 app.use(express.json());
 app.use(handleRequests());
 
-app.use(express.static(relativeDir('../client/build')));
-app.use('/public', express.static(relativeDir('public')));
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 routes(app);
 
