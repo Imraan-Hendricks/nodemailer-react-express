@@ -3,6 +3,7 @@ import { handle } from '../utils/utils';
 
 const Form = (inputs, request, onSuccess) => {
   const [data, setData] = useState(inputs);
+  const [loading, setLoading] = useState(false);
   const [validation, setValidation] = useState({});
 
   const handleOnChange = (event) => {
@@ -12,15 +13,18 @@ const Form = (inputs, request, onSuccess) => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const [res, errs] = await handle(request(data));
     if (errs) {
-      return errs.forEach((err) => {
+      errs.forEach((err) => {
         setValidation((state) => ({ ...state, [err.param]: err.msg }));
       });
+      return setLoading(false);
     }
     if (process.env.NODE_ENV === 'development')
       console.log('nodemailer api response:', res);
     onSuccess();
+    setLoading(false);
   };
 
   const error = (error) => {
@@ -28,7 +32,7 @@ const Form = (inputs, request, onSuccess) => {
     return false;
   };
 
-  return { data, validation, handleOnChange, handleSubmit, error };
+  return { data, loading, validation, handleOnChange, handleSubmit, error };
 };
 
 export default Form;

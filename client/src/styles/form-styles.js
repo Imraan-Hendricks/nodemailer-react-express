@@ -37,6 +37,11 @@ const useFormStyles = makeStyles((theme) => ({
     marginBottom: '10px',
     textTransform: 'none',
   },
+
+  circularProgress: {
+    marginTop: '10px',
+    marginBottom: '10px',
+  },
 }));
 
 export { useFormStyles };

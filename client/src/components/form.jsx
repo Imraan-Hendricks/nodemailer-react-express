@@ -1,11 +1,24 @@
 import React from 'react';
-import { Button, TextField, FormHelperText, Paper } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  TextField,
+  FormHelperText,
+  Paper,
+} from '@material-ui/core';
 import { contactUs } from '../api/api-nodemailer';
 import { useFormStyles } from '../styles/form-styles';
 import useForm from '../hooks/form';
 
 export const Form = (props) => {
-  const { data, validation, handleOnChange, handleSubmit, error } = useForm(
+  const {
+    data,
+    loading,
+    validation,
+    handleOnChange,
+    handleSubmit,
+    error,
+  } = useForm(
     {
       firstName: '',
       lastName: '',
@@ -87,13 +100,21 @@ export const Form = (props) => {
           <FormHelperText error>{validation.general}</FormHelperText>
         )}
       </form>
-      <Button
-        classes={{ contained: classes.button }}
-        variant='contained'
-        color='primary'
-        onClick={handleSubmit}>
-        Send
-      </Button>
+      {!loading && (
+        <Button
+          classes={{ contained: classes.button }}
+          variant='contained'
+          color='primary'
+          onClick={handleSubmit}>
+          Send
+        </Button>
+      )}
+      {loading && (
+        <CircularProgress
+          classes={{ root: classes.circularProgress }}
+          color='primary'
+        />
+      )}
     </Paper>
   );
 };
