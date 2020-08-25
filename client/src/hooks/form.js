@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { handle } from '../utils/utils';
 
-const Form = (inputs, request, onSuccess) => {
+export const useForm = (inputs, request, onSuccess) => {
   const [data, setData] = useState(inputs);
   const [loading, setLoading] = useState(false);
   const [validation, setValidation] = useState({});
@@ -34,5 +34,3 @@ const Form = (inputs, request, onSuccess) => {
 
   return { data, loading, validation, handleOnChange, handleSubmit, error };
 };
-
-export default Form;

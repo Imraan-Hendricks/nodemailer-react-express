@@ -1,4 +1,4 @@
-const handleFetch = async (endpoint, config) => {
+export const handleFetch = async (endpoint, config) => {
   const res = await fetch(endpoint, config);
 
   if (!res.ok) {
@@ -21,5 +21,3 @@ const handleFetch = async (endpoint, config) => {
 
   return apiRes.data;
 };
-
-export { handleFetch };

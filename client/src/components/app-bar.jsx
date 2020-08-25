@@ -5,6 +5,7 @@ import { useAppBarStyles } from '../styles/app-bar-styles';
 
 export const ButtonAppBar = () => {
   const classes = useAppBarStyles();
+
   return (
     <div className={classes.root}>
       <AppBar position='static'>

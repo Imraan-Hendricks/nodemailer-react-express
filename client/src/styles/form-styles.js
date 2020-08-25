@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useFormStyles = makeStyles((theme) => ({
+export const useFormStyles = makeStyles((theme) => ({
   root: {
     width: '85%',
     marginTop: '90px',
@@ -43,5 +43,3 @@ const useFormStyles = makeStyles((theme) => ({
     marginBottom: '10px',
   },
 }));
-
-export { useFormStyles };

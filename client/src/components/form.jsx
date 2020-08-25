@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { contactUs } from '../api/api-nodemailer';
 import { useFormStyles } from '../styles/form-styles';
-import useForm from '../hooks/form';
+import { useForm } from '../hooks/form';
 
 export const Form = (props) => {
   const {
@@ -31,6 +31,7 @@ export const Form = (props) => {
   );
 
   const classes = useFormStyles();
+
   return (
     <Paper elevation={3} className={classes.root}>
       <h1>Contact Us</h1>
